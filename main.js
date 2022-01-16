@@ -1,38 +1,93 @@
-const speed = 15;
-// buffer text in storage so don't have to read from the DOM every iteration
-let log = $('#code').text();
-i = 0;
 
-$("body").append("<div class='blog-content'><article><h2 id='title'></h2><span class='meta'><ul id='menu'><a target=\"_blank\" href='#'></a><a target=\"_blank\" href='#'></a><a target=\"_blank\" href='#'></a></ul></span><div class='article-content'><div class='c' /><div class='c' /><div class='hr' /></div></article></div><pre id='code-box'></pre>");
+$(".rubberBand").bind("webkitAnimationEnd mozAnimationEnd animationend", function(){
+    $(this).removeClass("animated")  
+  })
+  
+  $(".rubberBand").hover(function(){
+    $(this).addClass("animated");        
+  })
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     getBrowserPrefix();
-//     tick();
-// })
+// const slider = {
+//     hero: document.querySelector("#hero-slider"),
+//     main: document.querySelector("#slide-main"),
+//     handle: null,
+//     idle: true,
+//     activeIndex: -1,
+//     interval: 3500
+// };
 
-let tick = setInterval(function() {
-    if(i >= log.length){
-        clearInterval(tick);
-        setTimeout(function(){
-            $('#code-box').fadeOut("slow");
-        }, 3000);
-    }
-    $("#style-box").append(log[i]);
-    $("#code-box").append(log[i++]);
-    $('#code-box').html($('#code-box').html().replace(/(\:(.*?)\ ;)/g, ':<em class="value">$2</em>;'));
-    $('#code-box').html($('#code-box').html().replace(/(\/\*(.*?)\*\*\/)/g, '<em class="comment">/*$2*/</em>'));
-    let o = document.getElementById("code-box");
-    o.scrollTop = o.scrollHeight;
-
-}, speed);
-
-// browserPrefix = "";
-// function getBrowserPrefix() {
-//     try {browserPrefix = getPrefix();}
-//     finally{
-//     if (browserPrefix == null)
-//         log = $('#code').text($('#code').text().replace(/-webkit-/g, browserPrefix));}
+// const setCurrent = function() {
+//     return arguments[1] < 10 ? '0' + arguments[1] : arguments[1];
 // }
 
+// const changeSlide = function(direction) {
+//     slider.items = slider.hero.querySelectorAll('[data-index]');
+//     slider.total = slider.items.length / 2;
+//     slider.idle = false;
+//     slider.hero.classList.remove('prev', 'next');
+//     if (direction == 'next') {
+//         slider.activeIndex = (slider.activeIndex + 1) % slider.total;
+//         slider.hero.classList.add('next');
+//     } 
+//     else {
+//         slider.activeIndex = (slider.activeIndex - 1 + slider.total) & slider.total;
+//         slider.hero.classList.add('prev');
+//     }
 
+//     utils().removeClass(slider.items, ['prev', 'active']);
 
+//     const prevItems = [...slider.items].filter(item => {
+//         let prevIndex;
+//         if (slider.hero.classList.contains('prev')) {
+//             prevIndex = slider.activeIndex == slider.total - 1 ? 0 : slider.activeIndex + 1;
+//         }
+//         else {
+//             prevIndex = slider.activeIndex == 0 ? slider.total - 1 : slider.activeIndex - 1;
+//         }
+
+//         return item.dataset.index == prevIndex;
+//     });
+
+//     const activeItems = [...slider.items].filter(item => {
+//         return item.dataset.index == slider.activeIndex;
+//     });
+
+//     utils().addClasses(prevItems, ['prev']);
+//     utils().addClasses(activeItems, ['active']);
+//     setCurrent();
+
+//     const activeItem = slider.main.querySelector('.active');
+//     activeItem.addEventListener('transitioned', waitForIdle, {
+//         once: true
+//     });
+// }
+
+// const wheelControl = function() {
+//     slider.hero.addEventListener('wheel', e => {
+//         if (slider.idle) {
+//             const direction = e.deltaY > 0 ? 'next' : 'prev';
+//             changeSlide(direction);
+//         }
+//     })
+// }
+
+// const touchControl = function() {
+//     const touchStart = function(e) {
+//         slider.ts = parseInt(e.changedTouches[0].clientX);
+//         window.scrollTop = 0;
+//     }
+
+//     const touchMove = function(e) {
+//         slider.tm = parseInt(e.changedTouches[0].clientX);
+//         const delta = slide.tm - slider.ts;
+//         window.scrollTop = 0;
+
+//         if (slider.idle) {
+//             const direction = delta < 0 ? 'next' : 'prev';
+//             changeSlide(direction);
+//         }
+//     }
+
+//     slider.hero.addEventListener('touchStart', touchStart);
+//     slider.hero.addEventListener('touchmove', touchMove);
+// }
